@@ -1,34 +1,39 @@
-import ApiLoader from './utils/ApiLoader'
+import apiLoader from './utils/apiLoader'
 
-const VueYMaps = {
-  installed: false,
+const plugin = {
+  api: null,
+  subscribers: [],
 
   install (Vue, options = {}) {
-    if (this.installed) {
-      return
-    }
-
-    this.loader = new ApiLoader(options)
-    this.loader.load()
-
-    this.installed = true
-  },
-
-  loader: null,
-
-  load () {
-    if (!this.installed) {
-      throw new Error('Vue-ymaps plugin not installed')
-    }
-    this.loader.load()
+    this._loadApi(options)
   },
 
   ready () {
-    if (!this.installed) {
-      throw new Error('Vue-ymaps plugin not installed')
+    if (this._isReady()) {
+      return Promise.resolve(this.api)
     }
-    return this.loader.ready()
+
+    return new Promise((resolve, reject) => {
+      this.subscribers.push({ resolve, reject })
+    })
+  },
+
+  async _loadApi (options) {
+    try {
+      this.api = await apiLoader.load(options)
+    } catch (err) {
+      this.subscribers.forEach(({ reject }) => reject(err))
+      this.subscribers = []
+      return
+    }
+
+    this.subscribers.forEach(({ resolve }) => resolve(this.api))
+    this.subscribers = []
+  },
+
+  _isReady () {
+    return !!this.api
   }
 }
 
-export default VueYMaps
+export default plugin
