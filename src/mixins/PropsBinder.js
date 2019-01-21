@@ -77,7 +77,7 @@ const createPropBinder = (options) => {
 export default {
   methods: {
     bindProps (props) {
-      if (!props.length) {
+      if (!props.length || !this.isYMapsObj()) {
         return
       }
 
@@ -91,6 +91,10 @@ export default {
     },
 
     bindProp (prop) {
+      if (!this.isYMapsObj()) {
+        return
+      }
+
       const { name: propName, type: propType } = prop
 
       const binder = createPropBinder({
