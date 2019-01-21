@@ -2,6 +2,7 @@ import apiLoader from './utils/apiLoader'
 
 const plugin = {
   api: null,
+  apiErr: null,
   subscribers: [],
 
   install (Vue, options = {}) {
@@ -9,8 +10,10 @@ const plugin = {
   },
 
   ready () {
-    if (this._isReady()) {
+    if (this._isApiLoaded()) {
       return Promise.resolve(this.api)
+    } else if (this._isApiError()) {
+      return Promise.reject(this.apiErr)
     }
 
     return new Promise((resolve, reject) => {
@@ -22,17 +25,22 @@ const plugin = {
     try {
       this.api = await apiLoader.load(options)
     } catch (err) {
-      this.subscribers.forEach(({ reject }) => reject(err))
+      this.apiErr = err
+      this.subscribers.forEach(s => s.reject(err))
       this.subscribers = []
       return
     }
 
-    this.subscribers.forEach(({ resolve }) => resolve(this.api))
+    this.subscribers.forEach(s => s.resolve(this.api))
     this.subscribers = []
   },
 
-  _isReady () {
+  _isApiLoaded () {
     return !!this.api
+  },
+
+  _isApiError () {
+    return !!this.apiErr
   }
 }
 

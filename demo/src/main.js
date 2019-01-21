@@ -2,19 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import VueYMaps from '../../src'
+import VueYMaps from '@vue-ymaps'
 Vue.use(VueYMaps)
 
-// eslint-disable-next-line
-console.log(VueYMaps)
-VueYMaps.ready().then((ym) => {
-  // eslint-disable-next-line
-  console.log('vue-ymaps ready!')
-  // eslint-disable-next-line
-  console.log(ym)
-})
-
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 new Vue({
   router,

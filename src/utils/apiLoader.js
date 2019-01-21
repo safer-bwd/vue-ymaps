@@ -1,4 +1,4 @@
-const loader = {
+export default {
   api: null,
   loadPromise: null,
 
@@ -50,10 +50,12 @@ const loader = {
     document.body.appendChild(scriptElem)
 
     return new Promise((resolve, reject) => {
+      // TODO unbind event
       scriptElem.addEventListener('error', () => {
         reject(new Error('Failed to load Yandex.Maps'))
       })
 
+      // TODO unbind event
       scriptElem.addEventListener('load', () => {
         if (typeof window[ns] === 'undefined') {
           reject(new Error('Failed to load Yandex.Maps'))
@@ -68,5 +70,3 @@ const loader = {
     return !!this.api
   }
 }
-
-export default loader
