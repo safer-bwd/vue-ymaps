@@ -21,7 +21,7 @@ const boundEvents = [
 const boundProps = [
   { name: 'center', type: 'bounds' },
   { name: 'zoom', type: 'bounds' },
-  { name: 'type' }
+  { name: 'type', type: 'state'}
 ]
 
 // TODO bind ymaps object methods?
