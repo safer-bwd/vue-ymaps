@@ -2,25 +2,26 @@ import _keys from 'lodash/fp/keys'
 
 export default {
   created () {
-    this.$_ymaps_listeners = []
+    this.$_ymaps_boundEvents = []
   },
 
   beforeDestroy () {
-    if (!this.isYMapsObj()) {
-      return
-    }
-
     this.unbindEvents()
   },
 
   methods: {
     bindEvents (names) {
-      if (!names.length || !this.isYMapsObj()) {
+      if (!this.isYMapsObj()) {
+        return
+      }
+
+      const usedEventNames = _keys(this.$listeners)
+      if (names.length === 0 || usedEventNames.length === 0) {
         return
       }
 
       names
-        .filter(n => _keys(this.$listeners).includes(n))
+        .filter(n => usedEventNames.includes(n))
         .forEach(n => { this.bindEvent(n) })
     },
 
@@ -29,32 +30,36 @@ export default {
         return
       }
 
-      this.addYMapsEventListener(name, (targetEvent, ...args) => {
-        this.$emit(name, targetEvent, ...args)
-      })
-    },
-
-    unbindEvents() {
-      this.removeYMapsEventListeners()
-    },
-
-    addYMapsEventListener (evenName, callback) {
-      const obj = this.getYMapsObj()
-
-      // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/IEventManager-docpage
-      const eventManager = obj.events.add(evenName, callback)
-      const remove = () => { eventManager.remove(evenName, callback) }
-
-      this.$_ymaps_listeners.push({ evenName, remove })
-    },
-
-    removeYMapsEventListeners () {
-      if (!this.$_ymaps_listeners.length) {
+      if (this.isEventBound(name)) {
         return
       }
 
-      this.$_ymaps_listeners.forEach(l => l.remove())
-      this.$_ymaps_listeners = []
+      const unbind = this.addYMapsEventListener(name, (targetEvent, ...args) => {
+        this.$emit(name, targetEvent, ...args)
+      })
+      this.$_ymaps_boundEvents.push({ name, unbind })
+    },
+
+    unbindEvents () {
+      if (this.$_ymaps_boundEvents.length === 0) {
+        return
+      }
+
+      this.$_ymaps_boundEvents.forEach(e => e.unbind())
+      this.$_ymaps_boundEvents = []
+    },
+
+    addYMapsEventListener (eventName, callback) {
+      const obj = this.getYMapsObj()
+      // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/IEventManager-docpage
+      const eventManager = obj.events.add(eventName, callback)
+      return () => { eventManager.remove(eventName, callback) }
+    },
+
+    isEventBound (name) {
+      const found = this.$_ymaps_boundEvents
+        .find(e => e.name === name)
+      return found !== undefined
     }
   }
 }

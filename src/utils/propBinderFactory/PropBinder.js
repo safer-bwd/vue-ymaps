@@ -9,15 +9,15 @@ class PropBinder {
   }
 
   bind () {
-    this.vueComp.$watch(() => this.getVueVal(),
+    const unwatchVue = this.vueComp.$watch(() => this.getVueVal(),
       (newVal) => { this.setYMapsVal(newVal) })
 
     if (!this.needTwoWay()) {
-      return
+      return () => unwatchVue()
     }
 
     const changeEventName = this.getYMapsChangeEventName()
-    this.vueComp.addYMapsEventListener(changeEventName, () => {
+    const unwatchYMaps = this.vueComp.addYMapsEventListener(changeEventName, () => {
       const ymapsVal = this.getYMapsVal()
       const vueVal = this.getVueVal()
       if (this.isEqual(ymapsVal, vueVal)) {
@@ -25,6 +25,11 @@ class PropBinder {
       }
       this.vueComp.$emit(`update:${this.propName}`, ymapsVal)
     })
+
+    return () => {
+      unwatchVue()
+      unwatchYMaps()
+    }
   }
 
   needTwoWay () {
