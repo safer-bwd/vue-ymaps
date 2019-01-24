@@ -22,12 +22,13 @@ export default {
       }
 
       props
-        .filter(prop => usedPropNames.includes(prop.name))
-        .forEach(prop => this.bindProp(prop))
+        .filter(p => usedPropNames.includes(p.name))
+        .forEach(p => this.bindProp(p))
     },
 
     bindProp ({ name, type }) {
-      if (!this.isYMapsObj()) {
+      const ymapsObj = this.getYMapsObj()
+      if (!ymapsObj) {
         return
       }
 
@@ -38,7 +39,7 @@ export default {
       const options = {
         propName: name,
         propType: type,
-        ymapsObj: this.getYMapsObj(),
+        ymapsObj,
         vueComp: this
       }
       const binder = binderFactory.create(options)

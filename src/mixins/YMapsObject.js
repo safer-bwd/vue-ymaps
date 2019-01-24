@@ -4,7 +4,9 @@ export default {
   },
 
   destroyed () {
-    this.$_ymaps_obj = null
+    if (this.$_ymaps_obj) {
+      this.$_ymaps_obj = null
+    }
   },
 
   methods: {
@@ -18,6 +20,6 @@ export default {
 
     isYMapsObj () {
       return !!this.$_ymaps_obj
-    }
+    },
   }
 }

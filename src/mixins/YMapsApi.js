@@ -7,7 +7,7 @@ export default {
 
   async mounted () {
     try {
-      this.$_ymaps_api = await plugin.ready()
+      this.$_ymaps_api = await plugin.ymapsReady()
     } catch (err) {
       // TODO add event or hook?
       return
@@ -18,6 +18,10 @@ export default {
 
   $_ymaps_apiReady () {
     // override in components
+  },
+
+  destroyed () {
+    this.$_ymaps_api = null
   },
 
   methods: {

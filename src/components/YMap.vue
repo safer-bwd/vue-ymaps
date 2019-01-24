@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import plugin from '../'
 import YMapsApi from '../mixins/YMapsApi'
 import YMapsObject from '../mixins/YMapsObject'
 import EventsBinder from '../mixins/EventsBinder'
@@ -81,6 +82,14 @@ export default {
     }
   },
 
+  beforeCreate () {
+    if (this.$isServer) {
+      return
+    }
+
+    plugin.loadYMaps()
+  },
+
   $_ymaps_apiReady () {
     if (this.isYMapsObj()) {
       return
@@ -96,12 +105,13 @@ export default {
   },
 
   beforeDestroy () {
-    if (!this.isYMapsObj()) {
+    const obj = this.getYMapsObj()
+    if (!obj) {
       return
     }
 
-    const obj = this.getYMapsObj()
     obj.destroy()
+    this.setYMapsObj(null)
   },
 
   methods: {
