@@ -22,7 +22,7 @@ export default {
 
       names
         .filter(n => usedEventNames.includes(n))
-        .forEach(n => { this.bindEvent(n) })
+        .forEach(n => this.bindEvent(n))
     },
 
     bindEvent (name) {
@@ -34,9 +34,10 @@ export default {
         return
       }
 
-      const unbind = this.addYMapsEventListener(name, (targetEvent, ...args) => {
-        this.$emit(name, targetEvent, ...args)
+      const unbind = this.addYMapsEventListener(name, (event, ...args) => {
+        this.$emit(name, event, ...args)
       })
+
       this.$_ymaps_boundEvents.push({ name, unbind })
     },
 
@@ -53,13 +54,11 @@ export default {
       const obj = this.getYMapsObj()
       // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/IEventManager-docpage
       const eventManager = obj.events.add(eventName, callback)
-      return () => { eventManager.remove(eventName, callback) }
+      return () => eventManager.remove(eventName, callback)
     },
 
     isEventBound (name) {
-      const found = this.$_ymaps_boundEvents
-        .find(e => e.name === name)
-      return found !== undefined
+      return !!this.$_ymaps_boundEvents.find(e => e.name === name)
     }
   }
 }

@@ -10,7 +10,7 @@ class PropBinder {
 
   bind () {
     const unwatchVue = this.vueComp.$watch(() => this.getVueVal(),
-      (newVal) => { this.setYMapsVal(newVal) })
+      newVal => this.setYMapsVal(newVal))
 
     if (!this.needTwoWay()) {
       return () => unwatchVue()

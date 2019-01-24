@@ -57,9 +57,7 @@ export default {
     },
 
     isPropBound (name) {
-      const found = this.$_ymaps_boundProps
-        .find(p => p.name === name)
-      return found !== undefined
+      return !!this.$_ymaps_boundProps.find(p => p.name === name)
     }
   }
 }

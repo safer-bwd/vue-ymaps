@@ -17,6 +17,7 @@ export default {
   },
 
   $_ymaps_apiReady () {
+    // override in components
   },
 
   methods: {

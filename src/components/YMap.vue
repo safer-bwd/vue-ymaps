@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Api from '../mixins/Api'
-import ApiObject from '../mixins/ApiObject'
+import YMapsApi from '../mixins/YMapsApi'
+import YMapsObject from '../mixins/YMapsObject'
 import EventsBinder from '../mixins/EventsBinder'
 import PropsBinder from '../mixins/PropsBinder'
 
@@ -29,8 +29,8 @@ export default {
   name: 'y-map',
 
   mixins: [
-    Api,
-    ApiObject,
+    YMapsApi,
+    YMapsObject,
     EventsBinder,
     PropsBinder
   ],
