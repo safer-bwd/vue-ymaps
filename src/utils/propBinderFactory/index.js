@@ -1,17 +1,17 @@
-import BoundsBinder from './BoundsBinder'
-import StateBinder from './StateBinder'
+import BoundsBinder from './BoundsBinder';
+import StateBinder from './StateBinder';
 
 export default {
   create: (options) => {
-    const { propType } = options
+    const { propType } = options;
 
     switch (propType) {
       case 'bounds':
-        return new BoundsBinder(options)
+        return new BoundsBinder(options);
       case 'state':
-        return new StateBinder(options)
+        return new StateBinder(options);
       default:
-        throw new Error(`Unknown type of prop: ${propType}`)
+        throw new Error(`Unknown type of prop: ${propType}`);
     }
   }
-}
+};

@@ -7,23 +7,23 @@
 </template>
 
 <script>
-import plugin from '../'
-import YMapsApi from '../mixins/YMapsApi'
-import YMapsObject from '../mixins/YMapsObject'
-import EventsBinder from '../mixins/EventsBinder'
-import PropsBinder from '../mixins/PropsBinder'
+import plugin from '../';
+import YMapsApi from '../mixins/YMapsApi';
+import YMapsObject from '../mixins/YMapsObject';
+import EventsBinder from '../mixins/EventsBinder';
+import PropsBinder from '../mixins/PropsBinder';
 
 // TODO add others events
 const boundEvents = [
   'click'
-]
+];
 
 // TODO add others props
 const boundProps = [
   { name: 'center', type: 'bounds' },
   { name: 'zoom', type: 'bounds' },
   { name: 'type', type: 'state'}
-]
+];
 
 // TODO bind ymaps object methods?
 export default {
@@ -78,45 +78,45 @@ export default {
         width: '100%',
         height: '100%',
         overflow: 'hidden'
-      }
+      };
     }
   },
 
   beforeCreate () {
     if (this.$isServer) {
-      return
+      return;
     }
 
-    plugin.loadYMaps()
+    plugin.loadYMaps();
   },
 
   $_ymaps_apiReady () {
     if (this.isYMapsObj()) {
-      return
+      return;
     }
 
-    const map = this.createMap()
-    this.setYMapsObj(map)
+    const map = this.createMap();
+    this.setYMapsObj(map);
 
-    this.bindEvents(boundEvents)
-    this.bindProps(boundProps)
+    this.bindEvents(boundEvents);
+    this.bindProps(boundProps);
 
     // TODO add event?
   },
 
   beforeDestroy () {
-    const obj = this.getYMapsObj()
+    const obj = this.getYMapsObj();
     if (!obj) {
-      return
+      return;
     }
 
-    obj.destroy()
-    this.setYMapsObj(null)
+    obj.destroy();
+    this.setYMapsObj(null);
   },
 
   methods: {
     createMap () {
-      const api = this.getYMapsApi()
+      const api = this.getYMapsApi();
 
       return new api.Map(this.$refs.map, {
         center: this.center,
@@ -124,10 +124,10 @@ export default {
         type: this.type,
         controls: this.controls,
         behaviors: this.behaviors
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>

@@ -1,19 +1,19 @@
-import plugin from '../'
+import plugin from '../';
 
 export default {
   created () {
-    this.$_ymaps_api = null
+    this.$_ymaps_api = null;
   },
 
   async mounted () {
     try {
-      this.$_ymaps_api = await plugin.ymapsReady()
+      this.$_ymaps_api = await plugin.ymapsReady();
     } catch (err) {
       // TODO add event or hook?
-      return
+      return;
     }
 
-    this.$options.$_ymaps_apiReady.call(this)
+    this.$options.$_ymaps_apiReady.call(this);
   },
 
   $_ymaps_apiReady () {
@@ -21,12 +21,12 @@ export default {
   },
 
   destroyed () {
-    this.$_ymaps_api = null
+    this.$_ymaps_api = null;
   },
 
   methods: {
     getYMapsApi () {
-      return this.$_ymaps_api
+      return this.$_ymaps_api;
     }
   }
-}
+};

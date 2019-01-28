@@ -1,13 +1,13 @@
-import PropBinder from './PropBinder'
+import PropBinder from './PropBinder';
 
 class BoundsBinder extends PropBinder {
   constructor (options) {
-    super(options)
+    super(options);
   }
 
   getYMapsChangeEventName () {
-    return `boundschange`
+    return `boundschange`;
   }
 }
 
-export default BoundsBinder
+export default BoundsBinder;

@@ -1,9 +1,9 @@
-import PropBinder from './PropBinder'
+import PropBinder from './PropBinder';
 
 class StateBinder extends PropBinder {
   constructor (options) {
-    super(options)
+    super(options);
   }
 }
 
-export default StateBinder
+export default StateBinder;
