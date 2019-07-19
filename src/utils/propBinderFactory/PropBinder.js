@@ -1,5 +1,5 @@
-import _upperFirst from 'lodash/upperFirst';
-import _isEqual from 'lodash/isEqual';
+import upperFirst from 'lodash.upperfirst';
+import isEqual from 'lodash.isequal';
 
 class PropBinder {
   constructor ({ propName, vueComp, ymapsObj }) {
@@ -42,12 +42,12 @@ class PropBinder {
   }
 
   getYMapsVal () {
-    const getterName = `get${_upperFirst(this.propName)}`;
+    const getterName = `get${upperFirst(this.propName)}`;
     return this.ymapsObj[getterName]();
   }
 
   setYMapsVal (val) {
-    const setterName = `set${_upperFirst(this.propName)}`;
+    const setterName = `set${upperFirst(this.propName)}`;
     this.ymapsObj[setterName](val);
   }
 
@@ -56,7 +56,7 @@ class PropBinder {
   }
 
   isEqual (val1, val2) {
-    return _isEqual(val1, val2);
+    return isEqual(val1, val2);
   }
 }
 

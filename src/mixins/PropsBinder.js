@@ -1,4 +1,4 @@
-import _keys from 'lodash/fp/keys';
+import keys from 'lodash.keys';
 import binderFactory from '../utils/propBinderFactory';
 
 export default {
@@ -16,7 +16,7 @@ export default {
         return;
       }
 
-      const usedPropNames = _keys(this.$options.propsData);
+      const usedPropNames = keys(this.$options.propsData);
       if (props.length === 0 || usedPropNames.length === 0) {
         return;
       }

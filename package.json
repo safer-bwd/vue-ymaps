@@ -1,16 +1,16 @@
 {
   "name": "vue-ymaps",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Vue 2.x components for Yandex.Maps 2.1.x with two-way binding",
   "main": "src/index.js",
   "repository": "https://github.com/safer-bwd/vue-ymaps",
   "author": "Anton Safronov <safer.anton@gmail.com>",
   "license": "ISC",
   "scripts": {
-    "lint": "npx eslint ./src/**"
+    "lint": "eslint ./src/**"
   },
   "peerDependencies": {
-    "vue": "^2.5.21"
+    "vue": "^2.x"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -26,6 +26,8 @@
     "not ie <= 8"
   ],
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash.isequal": "^4.5.0",
+    "lodash.keys": "^4.2.0",
+    "lodash.upperfirst": "^4.3.1"
   }
 }

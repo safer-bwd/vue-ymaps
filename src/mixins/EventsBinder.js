@@ -1,4 +1,4 @@
-import _keys from 'lodash/fp/keys';
+import keys from 'lodash.keys';
 
 export default {
   created () {
@@ -15,7 +15,7 @@ export default {
         return;
       }
 
-      const usedEventNames = _keys(this.$listeners);
+      const usedEventNames = keys(this.$listeners);
       if (names.length === 0 || usedEventNames.length === 0) {
         return;
       }
