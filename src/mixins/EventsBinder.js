@@ -1,4 +1,5 @@
 import keys from 'lodash.keys';
+import listenTo from '../utils/ymaps-listen-to';
 
 export default {
   created () {
@@ -11,10 +12,6 @@ export default {
 
   methods: {
     bindEvents (names) {
-      if (!this.isYMapsObj()) {
-        return;
-      }
-
       const usedEventNames = keys(this.$listeners);
       if (names.length === 0 || usedEventNames.length === 0) {
         return;
@@ -26,18 +23,14 @@ export default {
     },
 
     bindEvent (name) {
-      if (!this.isYMapsObj()) {
-        return;
-      }
-
       if (this.isEventBound(name)) {
         return;
       }
 
-      const unbind = this.addYMapsEventListener(name, (event, ...args) => {
+      const obj = this.getYMapsObj();
+      const unbind = listenTo(obj, name, (event, ...args) => {
         this.$emit(name, event, ...args);
       });
-
       this.$_ymaps_boundEvents.push({ name, unbind });
     },
 
@@ -48,13 +41,6 @@ export default {
 
       this.$_ymaps_boundEvents.forEach(e => e.unbind());
       this.$_ymaps_boundEvents = [];
-    },
-
-    addYMapsEventListener (eventName, callback) {
-      const obj = this.getYMapsObj();
-      // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/IEventManager-docpage
-      const eventManager = obj.events.add(eventName, callback);
-      return () => eventManager.remove(eventName, callback);
     },
 
     isEventBound (name) {

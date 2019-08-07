@@ -1,5 +1,5 @@
 import keys from 'lodash.keys';
-import binderFactory from '../utils/propBinderFactory';
+import bind from '../utils/bind-prop';
 
 export default {
   created () {
@@ -12,10 +12,6 @@ export default {
 
   methods: {
     bindProps (props) {
-      if (!this.isYMapsObj()) {
-        return;
-      }
-
       const usedPropNames = keys(this.$options.propsData);
       if (props.length === 0 || usedPropNames.length === 0) {
         return;
@@ -26,25 +22,18 @@ export default {
         .forEach(p => this.bindProp(p));
     },
 
-    bindProp ({ name, type }) {
+    bindProp (prop) {
       const ymapsObj = this.getYMapsObj();
       if (!ymapsObj) {
         return;
       }
 
+      const { name } = prop;
       if (this.isPropBound(name)) {
         return;
       }
 
-      const options = {
-        propName: name,
-        propType: type,
-        ymapsObj,
-        vueComp: this
-      };
-      const binder = binderFactory.create(options);
-      const unbind = binder.bind();
-
+      const unbind = bind(prop, this, ymapsObj);
       this.$_ymaps_boundProps.push({ name, unbind });
     },
 

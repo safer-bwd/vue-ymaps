@@ -20,8 +20,8 @@ const boundEvents = [
 
 // TODO add others props
 const boundProps = [
-  { name: 'center', type: 'bounds' },
-  { name: 'zoom', type: 'bounds' },
+  { name: 'center', type: 'boundary' },
+  { name: 'zoom', type: 'boundary' },
   { name: 'type', type: 'state'}
 ];
 
@@ -67,6 +67,8 @@ export default {
       required: false,
       default: () => ['default']
     }
+
+    // TODO other props
   },
 
   computed: {
@@ -86,45 +88,36 @@ export default {
     if (this.$isServer) {
       return;
     }
-
     plugin.loadYMaps();
   },
 
-  $_ymaps_apiReady () {
-    if (this.isYMapsObj()) {
-      return;
-    }
-
-    const map = this.createMap();
-    this.setYMapsObj(map);
-
+  async mounted () {
+    await this.createMap();
     this.bindEvents(boundEvents);
     this.bindProps(boundProps);
-
-    // TODO add event?
+    this.$emit('ready');
   },
 
-  beforeDestroy () {
+  destroyed () {
     const obj = this.getYMapsObj();
-    if (!obj) {
-      return;
+    if (obj) {
+      obj.destroy();
     }
-
-    obj.destroy();
-    this.setYMapsObj(null);
   },
 
   methods: {
-    createMap () {
-      const api = this.getYMapsApi();
+    async createMap () {
+      const { Map } = await this.getYMapsApi();
 
-      return new api.Map(this.$refs.map, {
+      const map = new Map(this.$refs.map, {
         center: this.center,
         zoom: this.zoom,
         type: this.type,
         controls: this.controls,
         behaviors: this.behaviors
       });
+
+      this.setYMapsObj(map);
     }
   }
 };

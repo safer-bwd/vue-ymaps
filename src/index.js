@@ -1,5 +1,5 @@
-import loadYMaps from './utils/loadYMaps';
-import createEnum from './utils/createEnum';
+import loadYMaps from './utils/load-ymaps';
+import createEnum from './utils/create-enum';
 
 const Status = createEnum([
   'NOT_LOAD',
