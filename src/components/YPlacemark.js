@@ -7,7 +7,8 @@ const boundEvents = [
 
 // TODO add others props
 const boundProps = [
-  { name: 'coordinates', type: 'geometry' }
+  { name: 'coordinates', type: 'geometry' },
+  { name: 'options', type: 'options' }
 ];
 
 // TODO bind ymaps object methods?
@@ -21,7 +22,15 @@ export default {
     coordinates: {
       type: Array,
       required: true
-    }
+    },
+
+    options: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    },
+
+    // TODO other props
   },
 
   async mounted () {

@@ -22,7 +22,8 @@ const boundEvents = [
 const boundProps = [
   { name: 'center', type: 'boundary' },
   { name: 'zoom', type: 'boundary' },
-  { name: 'type', type: 'state'}
+  { name: 'type', type: 'state' },
+  { name: 'options', type: 'options' }
 ];
 
 // TODO bind ymaps object methods?
@@ -66,7 +67,13 @@ export default {
       type: Array,
       required: false,
       default: () => ['default']
-    }
+    },
+
+    options: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    },
 
     // TODO other props
   },
@@ -115,6 +122,8 @@ export default {
         type: this.type,
         controls: this.controls,
         behaviors: this.behaviors
+      }, {
+        ...this.options
       });
 
       this.setYMapsObj(map);
@@ -122,6 +131,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>

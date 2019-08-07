@@ -20,12 +20,19 @@
       lat: {{ map.center[0] }}, long: {{ map.center[1] }}
     </span>
     <br>
+    <label>nativeFullscreen</label>
+    <input type="checkbox"  v-model="map.options.nativeFullscreen">
+    <br>
+    <label>suppressMapOpenBlock</label>
+    <input type="checkbox"  v-model="map.options.suppressMapOpenBlock">
+    <br>
     <br>
     <y-map
       style="width: 600px; height: 400px"
       :center.sync="map.center"
       :zoom.sync="map.zoom"
       :type.sync="map.type"
+      :options="map.options"
       @click="onMapClick"
     >
     </y-map>
@@ -44,7 +51,11 @@ export default {
     map: {
       type: 'yandex#map',
       zoom: 10,
-      center: [55.76, 37.64]
+      center: [55.76, 37.64],
+      options: {
+        nativeFullscreen: false,
+        suppressMapOpenBlock: false
+      }
     }
   }),
 
