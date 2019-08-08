@@ -99,22 +99,24 @@ export default {
   },
 
   async mounted () {
-    await this.createMap();
+    const ymaps = await this.readyYMaps();
+    const map = this.createMap(ymaps);
+    this.setYMapsObj(map);
     this.bindEvents(boundEvents);
     this.bindProps(boundProps);
     this.$emit('ready');
   },
 
   destroyed () {
-    const obj = this.getYMapsObj();
-    if (obj) {
-      obj.destroy();
+    const map = this.getYMapsObj();
+    if (map) {
+      map.destroy();
     }
   },
 
   methods: {
-    async createMap () {
-      const { Map } = await this.getYMapsApi();
+    createMap (ymaps) {
+      const { Map } = ymaps;
 
       const map = new Map(this.$refs.map, {
         center: this.center,
@@ -126,7 +128,7 @@ export default {
         ...this.options
       });
 
-      this.setYMapsObj(map);
+      return map;
     }
   }
 };

@@ -34,7 +34,9 @@ export default {
   },
 
   async mounted () {
-    await this.createPlacemark();
+    const ymaps = await this.readyYMaps();
+    const placemark = this.createPlacemark(ymaps);
+    this.setYMapsObj(placemark);
     this.bindEvents(boundEvents);
     this.bindProps(boundProps);
     await this.addToMap();
@@ -42,10 +44,10 @@ export default {
   },
 
   methods: {
-    async createPlacemark () {
-      const { Placemark } = await this.getYMapsApi();
+    createPlacemark (ymaps) {
+      const { Placemark } = ymaps;
       const placemark = new Placemark(this.coordinates);
-      this.setYMapsObj(placemark);
+      return placemark;
     }
   }
 };
