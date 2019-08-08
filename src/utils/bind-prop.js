@@ -22,8 +22,14 @@ const bindOptions = {
   options: {
     getterVue: vue => vue.options,
     getterYMaps: (ymaps) => ymaps.options.getAll(),
-    setterYMaps: (ymaps, name, val) => ymaps.options.set(val),
-    updateEventYMaps: 'optionschange'
+    setterYMaps: (ymaps, name, vals) => ymaps.options.set(vals),
+    // updateEventYMaps: 'optionschange'
+  },
+  properties: {
+    getterVue: vue => vue.properties,
+    getterYMaps: (ymaps) => ymaps.properties.getAll(),
+    setterYMaps: (ymaps, name, vals) => ymaps.properties.set(vals),
+    // updateEventYMaps: 'propertieschange'
   }
 };
 
@@ -36,7 +42,7 @@ export default (prop, vue, ymaps) => {
     updateEventVue = `update:${name}`,
     getterYMaps = defaultGetterYMaps,
     setterYMaps = defaultSetterYMaps,
-    updateEventYMaps = `${name}change`,
+    updateEventYMaps = `${name}change`
   } = bindOptions[type] || {};
 
   const getVue = () => getterVue(vue, name);

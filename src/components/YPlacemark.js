@@ -1,5 +1,6 @@
 import GeoObject from '../mixins/GeoObject';
 
+
 // TODO add others events
 const boundEvents = [
   'click'
@@ -8,7 +9,8 @@ const boundEvents = [
 // TODO add others props
 const boundProps = [
   { name: 'coordinates', type: 'geometry' },
-  { name: 'options', type: 'options' }
+  { name: 'options', type: 'options' },
+  { name: 'properties', type: 'properties' }
 ];
 
 // TODO bind ymaps object methods?
@@ -25,6 +27,12 @@ export default {
     },
 
     options: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    },
+
+    properties: {
       type: Object,
       required: false,
       default: () => ({})
@@ -47,7 +55,9 @@ export default {
     createPlacemark (ymaps) {
       const { Placemark } = ymaps;
 
-      const placemark = new Placemark(this.coordinates, {}, {
+      const placemark = new Placemark(this.coordinates, {
+        ...this.properties
+      }, {
         ...this.$attrs,
         ...this.options
       });

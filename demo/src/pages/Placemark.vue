@@ -15,9 +15,15 @@
       step="0.1"
     />
     <br>
+    <label>balloonContent:</label>
+    <input v-model.number="placemark.properties.balloonContent"/>
+    &nbsp;
+    <label>iconCaption:</label>
+    <input v-model.number="placemark.properties.iconCaption"/>
+    <br>
     <label>draggable</label>
     <input type="checkbox"  v-model="placemark.options.draggable">
-    <br>
+    &nbsp;
     <label>visible</label>
     <input type="checkbox"  v-model="placemark.options.visible">
     <br>
@@ -31,6 +37,7 @@
       <y-placemark
         :coordinates.sync="placemark.coordinates"
         :options="placemark.options"
+        :properties="placemark.properties"
         @click="onPlacemarkClick"
       >
       </y-placemark>
@@ -50,6 +57,10 @@ export default {
   data: () => ({
     placemark: {
       coordinates: [55.76, 37.64],
+      properties: {
+        balloonContent: 'balloon',
+        iconCaption: 'caption'
+      },
       options: {
         draggable: false,
         visible: true
@@ -63,4 +74,5 @@ export default {
     }
   }
 }
+
 </script>
