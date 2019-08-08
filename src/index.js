@@ -30,7 +30,7 @@ const plugin = {
   },
 
   ymapsReady () {
-    const { api, status, error} = this.ymaps;
+    const { api, status, error } = this.ymaps;
 
     if (status === Status.LOADED) {
       return Promise.resolve(api);

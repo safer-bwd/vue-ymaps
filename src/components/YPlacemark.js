@@ -46,7 +46,12 @@ export default {
   methods: {
     createPlacemark (ymaps) {
       const { Placemark } = ymaps;
-      const placemark = new Placemark(this.coordinates);
+
+      const placemark = new Placemark(this.coordinates, {}, {
+        ...this.$attrs,
+        ...this.options
+      });
+
       return placemark;
     }
   }

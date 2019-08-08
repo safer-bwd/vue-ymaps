@@ -26,7 +26,7 @@
       style="width: 600px; height: 400px"
       :center="[55.76, 37.64]"
       :zoom="10"
-      :options="{ suppressMapOpenBlock: true }"
+      :suppressMapOpenBlock="true"
     >
       <y-placemark
         :coordinates.sync="placemark.coordinates"
@@ -43,7 +43,7 @@ import YMap from '@vue-ymaps/components/YMap'
 import YPlacemark from '@vue-ymaps/components/YPlacemark'
 
 export default {
-  name: 'map-demo-page',
+  name: 'placemark-page',
 
   components: { YMap, YPlacemark },
 

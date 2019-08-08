@@ -23,15 +23,13 @@
     <label>nativeFullscreen</label>
     <input type="checkbox"  v-model="map.options.nativeFullscreen">
     <br>
-    <label>suppressMapOpenBlock</label>
-    <input type="checkbox"  v-model="map.options.suppressMapOpenBlock">
-    <br>
     <br>
     <y-map
       style="width: 600px; height: 400px"
       :center.sync="map.center"
       :zoom.sync="map.zoom"
       :type.sync="map.type"
+      :suppressMapOpenBlock="true"
       :options="map.options"
       @click="onMapClick"
     >
@@ -43,7 +41,7 @@
 import YMap from '@vue-ymaps/components/YMap'
 
 export default {
-  name: 'map-demo-page',
+  name: 'map-page',
 
   components: { YMap },
 
@@ -53,8 +51,7 @@ export default {
       zoom: 10,
       center: [55.76, 37.64],
       options: {
-        nativeFullscreen: false,
-        suppressMapOpenBlock: false
+        nativeFullscreen: false
       }
     }
   }),

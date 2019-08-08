@@ -125,6 +125,7 @@ export default {
         controls: this.controls,
         behaviors: this.behaviors
       }, {
+        ...this.$attrs,
         ...this.options
       });
 
