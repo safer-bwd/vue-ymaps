@@ -12,8 +12,8 @@ export default {
   ],
 
   created () {
-    this.$_ymaps_map_vue = this.findVueMap();
-    if (!this.$_ymaps_map_vue) {
+    this.$_ymaps_vueMap = this.findVueMap();
+    if (!this.$_ymaps_vueMap) {
       throw new Error(`${this.constructor.name} must be used within a YMap component.`);
     }
   },
@@ -37,7 +37,7 @@ export default {
     },
 
     async getYMapsMap () {
-      const mapVue = this.$_ymaps_map_vue;
+      const mapVue = this.$_ymaps_vueMap;
       await mapVue.readyYMapsApiInstance();
       const map = mapVue.getYMapsInstance();
       return map;

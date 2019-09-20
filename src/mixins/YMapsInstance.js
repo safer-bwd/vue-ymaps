@@ -3,7 +3,7 @@ import createPromise from '../utils/create-promise';
 export default {
   created () {
     this.$_ymaps_instance = null;
-    this.$_ymaps_instance_promise = createPromise();
+    this.$_ymaps_instancePromise= createPromise();
   },
 
   methods: {
@@ -12,7 +12,7 @@ export default {
         return;
       }
       this.$_ymaps_instance = obj;
-      this.$_ymaps_instance_promise.resolve();
+      this.$_ymaps_instancePromise.resolve();
     },
 
     getYMapsInstance () {
@@ -20,7 +20,7 @@ export default {
     },
 
     readyYMapsApiInstance () {
-      return this.$_ymaps_instance_promise;
+      return this.$_ymaps_instancePromise;
     }
   }
 };
