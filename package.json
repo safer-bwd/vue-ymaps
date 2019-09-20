@@ -1,6 +1,6 @@
 {
   "name": "vue-ymaps",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vue 2.x components for Yandex.Maps 2.1.x with two-way binding",
   "main": "src/index.js",
   "repository": "https://github.com/safer-bwd/vue-ymaps",
