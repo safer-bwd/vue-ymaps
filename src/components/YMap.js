@@ -1,12 +1,3 @@
-<template>
-  <div>
-    <div ref="map" :style="mapStyle">
-      <slot></slot>
-    </div>
-  </div>
-</template>
-
-<script>
 import plugin from '../';
 import YMapsApi from '../mixins/YMapsApi';
 import YMapsObject from '../mixins/YMapsObject';
@@ -26,7 +17,6 @@ const boundProps = [
   { name: 'options', type: 'options' }
 ];
 
-// TODO bind ymaps object methods?
 export default {
   name: 'y-map',
 
@@ -78,19 +68,6 @@ export default {
     // TODO other props
   },
 
-  computed: {
-    mapStyle () {
-      return {
-        position: 'relative',
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden'
-      };
-    }
-  },
-
   beforeCreate () {
     if (this.$isServer) {
       return;
@@ -131,6 +108,19 @@ export default {
 
       return map;
     }
+  },
+
+  render(h) {
+    const ref = 'map';
+    const style = {
+      position: 'relative',
+      left: 0,
+      top: 0,
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden'
+    };
+    const container = h('div', { style, ref }, this.$slots.default);
+    return h('div', {}, [ container ]);
   }
 };
-</script>
