@@ -1,19 +1,19 @@
 import YMapsApi from '../mixins/YMapsApi';
-import YMapsObject from '../mixins/YMapsObject';
+import YMapsInstance from '../mixins/YMapsInstance';
 import EventsBinder from '../mixins/EventsBinder';
 import PropsBinder from '../mixins/PropsBinder';
 
 export default {
   mixins: [
     YMapsApi,
-    YMapsObject,
+    YMapsInstance,
     EventsBinder,
     PropsBinder
   ],
 
   created () {
-    this.$_ymaps_mapComp = this.findMapComponent();
-    if (!this.$_ymaps_mapComp) {
+    this.$_ymaps_map_vue = this.findVueMap();
+    if (!this.$_ymaps_map_vue) {
       throw new Error(`${this.constructor.name} must be used within a YMap component.`);
     }
   },
@@ -22,7 +22,7 @@ export default {
   },
 
   methods: {
-    findMapComponent () {
+    findVueMap() {
       const findIter = (comp) => {
         if (!comp) {
           return null;
@@ -37,9 +37,10 @@ export default {
     },
 
     async getYMapsMap () {
-      const mapComp = this.$_ymaps_mapComp;
-      await mapComp.readyYMapsObj();
-      return mapComp.getYMapsObj();
+      const mapVue = this.$_ymaps_map_vue;
+      await mapVue.readyYMapsApiInstance();
+      const map = mapVue.getYMapsInstance();
+      return map;
     }
   }
 };

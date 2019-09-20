@@ -1,6 +1,5 @@
 import GeoObject from '../mixins/GeoObject';
 
-
 // TODO add others events
 const boundEvents = [
   'click'
@@ -13,7 +12,6 @@ const boundProps = [
   { name: 'properties', type: 'properties' }
 ];
 
-// TODO bind ymaps object methods?
 export default {
   name: 'y-placemark',
 
@@ -36,15 +34,13 @@ export default {
       type: Object,
       required: false,
       default: () => ({})
-    },
-
-    // TODO other props
+    }
   },
 
   async mounted () {
-    const ymaps = await this.readyYMaps();
+    const ymaps = await this.readyYMapsApi();
     const placemark = this.createPlacemark(ymaps);
-    this.setYMapsObj(placemark);
+    this.setYMapsInstance(placemark);
     this.bindEvents(boundEvents);
     this.bindProps(boundProps);
     await this.addToMap();

@@ -27,7 +27,7 @@ export default {
         return;
       }
 
-      const obj = this.getYMapsObj();
+      const obj = this.getYMapsInstance();
       const unbind = listenTo(obj, name, (event, ...args) => {
         this.$emit(name, event, ...args);
       });

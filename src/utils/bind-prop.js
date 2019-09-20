@@ -23,13 +23,13 @@ const bindOptions = {
     getterVue: vue => vue.options,
     getterYMaps: (ymaps) => ymaps.options.getAll(),
     setterYMaps: (ymaps, name, vals) => ymaps.options.set(vals),
-    // updateEventYMaps: 'optionschange'
+    updateEventYMaps: 'optionschange'
   },
   properties: {
     getterVue: vue => vue.properties,
     getterYMaps: (ymaps) => ymaps.properties.getAll(),
     setterYMaps: (ymaps, name, vals) => ymaps.properties.set(vals),
-    // updateEventYMaps: 'propertieschange'
+    updateEventYMaps: 'propertieschange'
   }
 };
 

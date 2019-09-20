@@ -9,7 +9,7 @@ export default {
 
   methods: {
     async addToMap () {
-      const obj = this.getYMapsObj();
+      const obj = this.getYMapsInstance();
       if (!obj) {
         return;
       }
@@ -18,7 +18,7 @@ export default {
     },
 
     async removeFromMap () {
-      const obj = this.getYMapsObj();
+      const obj = this.getYMapsInstance();
       if (!obj) {
         return;
       }

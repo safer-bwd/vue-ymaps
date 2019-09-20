@@ -2,7 +2,7 @@ import plugin from '../';
 
 export default {
   methods: {
-    readyYMaps () {
+    readyYMapsApi () {
       return plugin.ymapsReady();
     }
   }

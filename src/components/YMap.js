@@ -1,6 +1,6 @@
 import plugin from '../';
 import YMapsApi from '../mixins/YMapsApi';
-import YMapsObject from '../mixins/YMapsObject';
+import YMapsInstance from '../mixins/YMapsInstance';
 import EventsBinder from '../mixins/EventsBinder';
 import PropsBinder from '../mixins/PropsBinder';
 
@@ -22,7 +22,7 @@ export default {
 
   mixins: [
     YMapsApi,
-    YMapsObject,
+    YMapsInstance,
     EventsBinder,
     PropsBinder
   ],
@@ -76,16 +76,16 @@ export default {
   },
 
   async mounted () {
-    const ymaps = await this.readyYMaps();
+    const ymaps = await this.readyYMapsApi();
     const map = this.createMap(ymaps);
-    this.setYMapsObj(map);
+    this.setYMapsInstance(map);
     this.bindEvents(boundEvents);
     this.bindProps(boundProps);
     this.$emit('ready');
   },
 
   destroyed () {
-    const map = this.getYMapsObj();
+    const map = this.getYMapsInstance();
     if (map) {
       map.destroy();
     }

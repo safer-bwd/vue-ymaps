@@ -23,7 +23,7 @@ export default {
     },
 
     bindProp (prop) {
-      const ymapsObj = this.getYMapsObj();
+      const ymapsObj = this.getYMapsInstance();
       if (!ymapsObj) {
         return;
       }
