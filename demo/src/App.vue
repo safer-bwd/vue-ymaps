@@ -3,7 +3,11 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/map-demo">Map</router-link> |
-      <router-link to="/placemark-demo">Placemark</router-link>
+      <router-link to="/placemark-demo">Placemark</router-link> |
+      <router-link to="/polyline-demo">Polyline</router-link> |
+      <router-link to="/rectangle-demo">Rectangle</router-link> |
+      <router-link to="/polygon-demo">Polygon</router-link> |
+      <router-link to="/circle-demo">Circle</router-link> |
     </div>
     <router-view/>
   </div>

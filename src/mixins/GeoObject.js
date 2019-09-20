@@ -39,10 +39,6 @@ export default {
     }
   },
 
-  data: () => ({
-    type: ''
-  }),
-
   async mounted () {
     const ymaps = await this.readyYMapsApi();
     const geoObj = this.createGeoObject(ymaps);
